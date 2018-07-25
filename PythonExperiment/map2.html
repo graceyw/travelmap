@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script>L_PREFER_CANVAS = false; L_NO_TOUCH = false; L_DISABLE_3D = false;</script>
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.0/leaflet.markercluster-src.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.0/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.0/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://rawgit.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css" />
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    
+            <style> #map_e98fd04ad7994298b85f09576fe663b2 {
+                position : relative;
+                width : 100.0%;
+                height: 100.0%;
+                left: 0.0%;
+                top: 0.0%;
+                }
+            </style>
+        
+</head>
+<body>    
+    
+            <div class="folium-map" id="map_e98fd04ad7994298b85f09576fe663b2" ></div>
+        
+</body>
+<script>    
+    
+
+            
+                var southWest = L.latLng(-90, -180);
+                var northEast = L.latLng(90, 180);
+                var bounds = L.latLngBounds(southWest, northEast);
+            
+
+            var map_e98fd04ad7994298b85f09576fe663b2 = L.map(
+                                  'map_e98fd04ad7994298b85f09576fe663b2',
+                                  {center: [0,0],
+                                  zoom: 1,
+                                  maxBounds: bounds,
+                                  layers: [],
+                                  worldCopyJump: false,
+                                  crs: L.CRS.EPSG3857
+                                 });
+            
+        
+    
+            var tile_layer_ea937371f1b94204981a5cf7d94dc7c1 = L.tileLayer(
+                'https://{s}.tiles.mapbox.com/v3/mapbox.world-bright/{z}/{x}/{y}.png',
+                {
+                    maxZoom: 18,
+                    minZoom: 1,
+                    continuousWorld: false,
+                    noWrap: false,
+                    attribution: 'Map tiles by <a href="http://www.mapbox.com/m">Mapbox</a> Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.',
+                    detectRetina: false
+                    }
+                ).addTo(map_e98fd04ad7994298b85f09576fe663b2);
+
+        
+    
+
+            var marker_628bdee4f44c41af8fc7a0dd1b59f6c4 = L.marker(
+                [-10,39.665631],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(map_e98fd04ad7994298b85f09576fe663b2);
+            
+    
+
+                var icon_1f9554ad6a0c4c04b28b8c2cc3e0a238 = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'blue',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_628bdee4f44c41af8fc7a0dd1b59f6c4.setIcon(icon_1f9554ad6a0c4c04b28b8c2cc3e0a238);
+            
+    
+            var popup_f15f1d389ffa48c7b96eb8769de2118e = L.popup({maxWidth: '300'});
+
+            
+                var html_dbaca34087684429b6961a1f666436b9 = $('<div id="html_dbaca34087684429b6961a1f666436b9" style="width: 100.0%; height: 100.0%;">heyyy</div>')[0];
+                popup_f15f1d389ffa48c7b96eb8769de2118e.setContent(html_dbaca34087684429b6961a1f666436b9);
+            
+
+            marker_628bdee4f44c41af8fc7a0dd1b59f6c4.bindPopup(popup_f15f1d389ffa48c7b96eb8769de2118e);
+
+            
+        
+    
+
+            var marker_14ef1cd440144c14bad86cde1d88ee56 = L.marker(
+                [-105.205679,39.665631],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(map_e98fd04ad7994298b85f09576fe663b2);
+            
+    
+
+                var icon_93c4ffcfb1364209a6a6f69e0aa8dc6a = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_14ef1cd440144c14bad86cde1d88ee56.setIcon(icon_93c4ffcfb1364209a6a6f69e0aa8dc6a);
+            
+    
+            var popup_cb21ffce95c24c5fac84babda348d764 = L.popup({maxWidth: '300'});
+
+            
+                var html_67bc10b07e244ba3b8139fa46abbc617 = $('<div id="html_67bc10b07e244ba3b8139fa46abbc617" style="width: 100.0%; height: 100.0%;">Red Rocks Ampitheatre: Awesome-looking concert venue</div>')[0];
+                popup_cb21ffce95c24c5fac84babda348d764.setContent(html_67bc10b07e244ba3b8139fa46abbc617);
+            
+
+            marker_14ef1cd440144c14bad86cde1d88ee56.bindPopup(popup_cb21ffce95c24c5fac84babda348d764);
+
+            
+        
+    
+
+            var marker_776a812581a44aedbac77d1f93ca2d7f = L.marker(
+                [13.08154,47.788939],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(map_e98fd04ad7994298b85f09576fe663b2);
+            
+    
+
+                var icon_7ab7b1e1712d495ab95ac57f1fb09d83 = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_776a812581a44aedbac77d1f93ca2d7f.setIcon(icon_7ab7b1e1712d495ab95ac57f1fb09d83);
+            
+    
+            var popup_b211063516fe4281979cd0cffbb6b076 = L.popup({maxWidth: '300'});
+
+            
+                var html_10b3c6545d5b4f9d93241908f32bbef8 = $('<div id="html_10b3c6545d5b4f9d93241908f32bbef8" style="width: 100.0%; height: 100.0%;">Villa Trapp: Historic home of Bon Trapp family</div>')[0];
+                popup_b211063516fe4281979cd0cffbb6b076.setContent(html_10b3c6545d5b4f9d93241908f32bbef8);
+            
+
+            marker_776a812581a44aedbac77d1f93ca2d7f.bindPopup(popup_b211063516fe4281979cd0cffbb6b076);
+
+            
+        
+    
+
+            var marker_36b00f9eafb048df947c0453cfe58dd0 = L.marker(
+                [-86.8173755,36.101851155],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(map_e98fd04ad7994298b85f09576fe663b2);
+            
+    
+
+                var icon_f4e00fab05ae49539198afba198a7e76 = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_36b00f9eafb048df947c0453cfe58dd0.setIcon(icon_f4e00fab05ae49539198afba198a7e76);
+            
+    
+            var popup_706855abe8eb4c59b63a88373547bf1e = L.popup({maxWidth: '300'});
+
+            
+                var html_4c9885669fb646e39bdd3f3ee1212d0e = $('<div id="html_4c9885669fb646e39bdd3f3ee1212d0e" style="width: 100.0%; height: 100.0%;">Blue Bird Cafe: Famous discovery spot in Nashville</div>')[0];
+                popup_706855abe8eb4c59b63a88373547bf1e.setContent(html_4c9885669fb646e39bdd3f3ee1212d0e);
+            
+
+            marker_36b00f9eafb048df947c0453cfe58dd0.bindPopup(popup_706855abe8eb4c59b63a88373547bf1e);
+
+            
+        
+    
+
+            var marker_297bde5dabd34a4683e10ab2039a7d6d = L.marker(
+                [-122.420963,37.770859],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(map_e98fd04ad7994298b85f09576fe663b2);
+            
+    
+
+                var icon_f64eba8901b246638595a2266681ca1b = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'blue',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_297bde5dabd34a4683e10ab2039a7d6d.setIcon(icon_f64eba8901b246638595a2266681ca1b);
+            
+    
+            var popup_1f5341fcfe884482bc7b785fbcb0a00d = L.popup({maxWidth: '300'});
+
+            
+                var html_d5383502127e4de2b05c0136cfa2342b = $('<div id="html_d5383502127e4de2b05c0136cfa2342b" style="width: 100.0%; height: 100.0%;">Dark Inc: </div>')[0];
+                popup_1f5341fcfe884482bc7b785fbcb0a00d.setContent(html_d5383502127e4de2b05c0136cfa2342b);
+            
+
+            marker_297bde5dabd34a4683e10ab2039a7d6d.bindPopup(popup_1f5341fcfe884482bc7b785fbcb0a00d);
+
+            
+        
+</script>
