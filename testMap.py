@@ -14,9 +14,9 @@ def plot_places():
     # Creates map
     map1 = folium.Map(zoom_start=2, tiles='Mapbox bright')
     # map1.Marker(location=[46.8354,-121.7325], popup='Camp Muir')
-    folium.Marker(location=[-100,-60]).add_to(map1)
+    # folium.Marker(location=[-100,-60]).add_to(map1)
     folium.ClickForMarker(popup='waypt').add_to(map1)
-    map1.save('testMap.html')
+    map1.save('emptymap.html')
 
 if __name__ == '__main__':
     plot_places()

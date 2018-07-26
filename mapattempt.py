@@ -12,7 +12,7 @@ def plot_places():
 
     # Creates map
     placesMap = folium.Map(zoom_start=2, tiles='Mapbox bright')
-    folium.Marker(location=[356915.68,482043.25],icon=folium.Icon(color='green'),popup='hi').add_to(placesMap)
+    # folium.Marker(location=[356915.68,482043.25],icon=folium.Icon(color='green'),popup='hi').add_to(placesMap)
 
     # Loads database from json file 'placesdb.json'
     with open('placesdb.json') as f:

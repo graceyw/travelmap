@@ -19,7 +19,7 @@
     <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
     <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
     
-            <style> #map_3cc31b2c13f74bd7b45f3145ff173543 {
+            <style> #map_2bb7da03116e42a0b0d8dab23b0b4c20 {
                 position : relative;
                 width : 100.0%;
                 height: 100.0%;
@@ -31,7 +31,7 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_3cc31b2c13f74bd7b45f3145ff173543" ></div>
+            <div class="folium-map" id="map_2bb7da03116e42a0b0d8dab23b0b4c20" ></div>
         
 </body>
 <script>    
@@ -43,8 +43,8 @@
                 var bounds = L.latLngBounds(southWest, northEast);
             
 
-            var map_3cc31b2c13f74bd7b45f3145ff173543 = L.map(
-                                  'map_3cc31b2c13f74bd7b45f3145ff173543',
+            var map_2bb7da03116e42a0b0d8dab23b0b4c20 = L.map(
+                                  'map_2bb7da03116e42a0b0d8dab23b0b4c20',
                                   {center: [0,0],
                                   zoom: 1,
                                   maxBounds: bounds,
@@ -55,7 +55,7 @@
             
         
     
-            var tile_layer_630ffeba5ae340599bcbc267a7f83ee5 = L.tileLayer(
+            var tile_layer_5f4ee0b1550a45bd81411630d9fdf5e6 = L.tileLayer(
                 'https://{s}.tiles.mapbox.com/v3/mapbox.world-bright/{z}/{x}/{y}.png',
                 {
                     maxZoom: 18,
@@ -65,18 +65,18 @@
                     attribution: 'Map tiles by <a href="http://www.mapbox.com/m">Mapbox</a> Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.',
                     detectRetina: false
                     }
-                ).addTo(map_3cc31b2c13f74bd7b45f3145ff173543);
+                ).addTo(map_2bb7da03116e42a0b0d8dab23b0b4c20);
 
         
     
                 function newMarker(e){
-                    var new_mark = L.marker().setLatLng(e.latlng).addTo(map_3cc31b2c13f74bd7b45f3145ff173543);
+                    var new_mark = L.marker().setLatLng(e.latlng).addTo(map_2bb7da03116e42a0b0d8dab23b0b4c20);
                     new_mark.dragging.enable();
-                    new_mark.on('dblclick', function(e){ map_3cc31b2c13f74bd7b45f3145ff173543.removeLayer(e.target)})
+                    new_mark.on('dblclick', function(e){ map_2bb7da03116e42a0b0d8dab23b0b4c20.removeLayer(e.target)})
                     var lat = e.latlng.lat.toFixed(4),
                        lng = e.latlng.lng.toFixed(4);
-                    new_mark.bindPopup("place");
+                    new_mark.bindPopup("waypt");
                     };
-                map_3cc31b2c13f74bd7b45f3145ff173543.on('click', newMarker);
+                map_2bb7da03116e42a0b0d8dab23b0b4c20.on('click', newMarker);
             
 </script>
