@@ -26,8 +26,6 @@ def plot_places():
     #          PlacesDB["places"][0]["visited"]}
     # print(location, icon, popup)
 
-    # folium.features.ClickForMarker()
-
     # Loops through placesDB and drops pins i.e. 'markers'
     # for i in range(len(PlacesDB["places"])):
     #     # if PlacesDB[i] == []:
@@ -47,6 +45,7 @@ def plot_places():
     #                                  ).add_to(placesMap)
         # sleep(1)  # Delays calls to open cage geocoder
     # keep_in_front(marker)
+    folium.ClickForMarker(popup='place').add_to(placesMap)
     placesMap.save('map2.html')
 
 if __name__ == '__main__':
