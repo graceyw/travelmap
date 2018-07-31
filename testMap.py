@@ -15,8 +15,21 @@ def plot_places():
     map1 = folium.Map(zoom_start=2, tiles='Mapbox bright')
     # map1.Marker(location=[46.8354,-121.7325], popup='Camp Muir')
     # folium.Marker(location=[-100,-60]).add_to(map1)
-    folium.ClickForMarker(popup='waypt').add_to(map1)
+    folium.ClickForMarker(popup='test point').add_to(map1)
     map1.save('emptymap.html')
 
 if __name__ == '__main__':
     plot_places()
+
+
+'''
+Leaflet is the JS library being used
+Folium is Python library
+
+Put in an event listener: document.addEventListener('click', myfunction, false);
+When event (marker getting put down) happens, run this function
+
+Function gets the data we need based on the event
+
+Then we figure out how to add custom js to send the data to dark
+'''

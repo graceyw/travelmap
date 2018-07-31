@@ -72,19 +72,11 @@
                 function newMarker(e){
                     var new_mark = L.marker().setLatLng(e.latlng).addTo(map_3734eca3096a41a39173e5da73cd2fef);
                     new_mark.dragging.enable();
-                    <div id="marker" ></div>
-                    // function savePoint(){
-                    //   alert("test save pt");
-                    // }
                     new_mark.on('dblclick', function(e){ map_3734eca3096a41a39173e5da73cd2fef.removeLayer(e.target)})
                     var lat = e.latlng.lat.toFixed(4),
                        lng = e.latlng.lng.toFixed(4);
-                       alert(lat);
-                       alert(lng);
-                    new_mark.bindPopup("Location Name");
+                    new_mark.bindPopup("waypt");
                     };
                 map_3734eca3096a41a39173e5da73cd2fef.on('click', newMarker);
 
 </script>
-<!--Need to make/access specific id for each marker when it's created,
-then set an eventListener for click on that id. But will that timing workcomes first? -->

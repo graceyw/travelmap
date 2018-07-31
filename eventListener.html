@@ -1,0 +1,29 @@
+<!--messing with js and html-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+function addListeners(){
+  if(window.addEventListener){
+    document.getElementById('mybtn').addEventListener("click",btn1func,false)
+    document.getElementById('mybtn2').addEventListener("mouseover",btn2func,false)
+    document.getElementById('mybtn2').addEventListener("mouseover",btn2func,false)
+  }
+  else if (window.attachEvent){
+    document.getElementById('mybtn').attachEvent("onclick",btn1func);
+  }
+  function btn1func(){
+    alert(this.id+" : mouse-click makes script run");
+  }
+  function btn2func(){
+    alert(this.id+" : mouse-click makes script run");
+  }
+}
+  window.onload = addListeners;
+  </script>
+<body>
+<button id="mybtn">My Button</button>
+<button id="mybtn2">Hover Button</button>
+</body>
+</html>
