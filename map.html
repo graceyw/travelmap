@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<head>    
+<head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <script>L_PREFER_CANVAS = false; L_NO_TOUCH = false; L_DISABLE_3D = false;</script>
     <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="https://rawgit.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css" />
     <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
     <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
-    
-            <style> #map_27f2ce1cc57c47958d502f7e5cd46dde {
+
+            <style> #map_ccb8437a7bed495eb573dada52e321a9 {
                 position : relative;
                 width : 100.0%;
                 height: 100.0%;
@@ -27,24 +27,24 @@
                 top: 0.0%;
                 }
             </style>
-        
-</head>
-<body>    
-    
-            <div class="folium-map" id="map_27f2ce1cc57c47958d502f7e5cd46dde" ></div>
-        
-</body>
-<script>    
-    
 
-            
+</head>
+<body>
+
+            <div class="folium-map" id="map_ccb8437a7bed495eb573dada52e321a9" ></div>
+
+</body>
+<script>
+
+
+
                 var southWest = L.latLng(-90, -180);
                 var northEast = L.latLng(90, 180);
                 var bounds = L.latLngBounds(southWest, northEast);
-            
 
-            var map_27f2ce1cc57c47958d502f7e5cd46dde = L.map(
-                                  'map_27f2ce1cc57c47958d502f7e5cd46dde',
+
+            var map_ccb8437a7bed495eb573dada52e321a9 = L.map(
+                                  'map_ccb8437a7bed495eb573dada52e321a9',
                                   {center: [0,0],
                                   zoom: 1,
                                   maxBounds: bounds,
@@ -52,30 +52,31 @@
                                   worldCopyJump: false,
                                   crs: L.CRS.EPSG3857
                                  });
-            
-        
-    
-            var tile_layer_276a93f237fa4de295108f66550a21ea = L.tileLayer(
-                'https://{s}.tiles.mapbox.com/v3/mapbox.world-bright/{z}/{x}/{y}.png',
+
+
+
+            var tile_layer_edba1553fd294b3d8061321bc978e60a = L.tileLayer(
+                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 {
                     maxZoom: 18,
                     minZoom: 1,
                     continuousWorld: false,
                     noWrap: false,
-                    attribution: 'Map tiles by <a href="http://www.mapbox.com/m">Mapbox</a> Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.',
+                    attribution: 'Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
                     detectRetina: false
                     }
-                ).addTo(map_27f2ce1cc57c47958d502f7e5cd46dde);
+                ).addTo(map_ccb8437a7bed495eb573dada52e321a9);
 
-        
-    
 
-            var marker_d26d10e119674231a6d613b0ccba7d8d = L.marker(
-                [10,-80],
-                {
-                    icon: new L.Icon.Default()
-                    }
-                )
-                .addTo(map_27f2ce1cc57c47958d502f7e5cd46dde);
-            
+
+                function newMarker(e){
+                    var new_mark = L.marker().setLatLng(e.latlng).addTo(map_ccb8437a7bed495eb573dada52e321a9);
+                    new_mark.dragging.enable();
+                    new_mark.on('dblclick', function(e){ map_ccb8437a7bed495eb573dada52e321a9.removeLayer(e.target)})
+                    var lat = e.latlng.lat.toFixed(4),
+                       lng = e.latlng.lng.toFixed(4);
+                    new_mark.bindPopup("test point");
+                    };
+                map_ccb8437a7bed495eb573dada52e321a9.on('click', newMarker);
+
 </script>
