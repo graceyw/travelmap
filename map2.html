@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <head>
+  <center><h2 style="font-family:verdana;">My Travel Map</h2>
+  <p style="font-family:verdana;">"Oh, the places you'll go..."</p></center>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <script>L_PREFER_CANVAS = false; L_NO_TOUCH = false; L_DISABLE_3D = false;</script>
     <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
@@ -22,17 +24,23 @@
             <style> #map1 {
                 position : relative;
                 width : 100.0%;
-                height: 100.0%;
+                height: 85.0%;
                 left: 0.0%;
                 top: 0.0%;
                 }
             </style>
 
 </head>
+<style>
+body {
+  background-color: #DCDCDC;
+}
+</style>
 <body>
 
             <div class="folium-map" id="map1" ></div>
 
+            <div align="right"><font size="2"><a href="https://github.com/graceyw/travelmap">Source code</a></font></div>
 </body>
 <script>
 
@@ -70,10 +78,10 @@
             var xhr = new XMLHttpRequest();
             xhr.open('GET', 'http://gracey.builtwithdark.com/pins', true);
 
-            xhr.onload = function addSavedPins(){
-              for (pin : Pins):
-                newMarker()
-            };
+            // xhr.onload = function addSavedPins(){
+            //   for (pin : Pins):
+            //     newMarker()
+            // };
 
                 function newMarker(e){   //e stands for event?
                     var new_mark = L.marker().setLatLng(e.latlng).addTo(map1);
@@ -81,7 +89,7 @@
                     new_mark.on('dblclick', function(e){ map1.removeLayer(e.target)})
                     var lat = e.latlng.lat.toFixed(4),
                         lng = e.latlng.lng.toFixed(4);
-                    new_mark.bindPopup('Name: ' + lat + ', ' + lng);
+                    new_mark.bindPopup(lat + ', ' + lng);
 
                     //Send data to Dark
                     var xhr = new XMLHttpRequest();
