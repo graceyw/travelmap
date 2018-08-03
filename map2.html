@@ -54,19 +54,31 @@
                                  });
 
 
+// Mapbox (orginally generated)
+            // var tile_layer_c484a2e1011044b98ce194bc81bf44c7 = L.tileLayer(
+            //     'https://{s}.tiles.mapbox.com/v3/mapbox.world-bright/{z}/{x}/{y}.png',
+            //     {
+            //         maxZoom: 18,
+            //         minZoom: 1,
+            //         continuousWorld: false,
+            //         noWrap: false,
+            //         attribution: 'Map tiles by <a href="http://www.mapbox.com/m">Mapbox</a> Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.',
+            //         detectRetina: false
+            //         }
+            //     ).addTo(map1);
 
+// Open Street Map (copied from map.html)
             var tile_layer_c484a2e1011044b98ce194bc81bf44c7 = L.tileLayer(
-                'https://{s}.tiles.mapbox.com/v3/mapbox.world-bright/{z}/{x}/{y}.png',
+                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 {
                     maxZoom: 18,
                     minZoom: 1,
                     continuousWorld: false,
                     noWrap: false,
-                    attribution: 'Map tiles by <a href="http://www.mapbox.com/m">Mapbox</a> Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.',
+                    attribution: 'Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
                     detectRetina: false
                     }
                 ).addTo(map1);
-
 
 
                 function newMarker(e){   //e stands for event?
@@ -75,13 +87,14 @@
                     new_mark.on('dblclick', function(e){ map1.removeLayer(e.target)})
                     var lat = e.latlng.lat.toFixed(4),
                         lng = e.latlng.lng.toFixed(4);
-                    new_mark.bindPopup('Place: ' + lat + ', ' + lng);
+                    new_mark.bindPopup('Name: ' + lat + ', ' + lng);
 
                     //Send data to Dark
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", 'http://gracey.builtwithdark.com/pins', true);
                     xhr.setRequestHeader("Content-Type", "application/json");
                     // xhr.send(JSON.stringify(lat));
+                    // xhr.send("Name": "hello");
                     xhr.send({"Name": "Dark Inc.",
                               "Latitude": lat,
                               "Longitude": lng,
@@ -91,13 +104,10 @@
                     };
                 map1.on('click', newMarker);  //newMarker is the func that gets called when data is added- we can send data to dark within it
 
+// 1. Send all pins to dark every time a new marker is added.
+//     - Add js formatting to send it all
+//     - In dark, add logic: if pin already exists in db, update it. If not, add it.
+// 2. When page loads, add a thing that retrieves all the data saved in dark (which will
+//    probably fire off 10 more events/replacing data in dark which is redundant but it's fine).
+// 3. Make sure deleted pins (dblclick) go away when sending all pins/updating db.
 </script>
-
-'''
-1. Send all pins to dark every time a new marker is added.
-    - Add js formatting to send it all
-    - In dark, add logic: if pin already exists in db, update it. If not, add it.
-2. When page loads, add a thing that retrieves all the data saved in dark (which will
-   probably fire off 10 more events/replacing data in dark which is redundant but it's fine).
-3. Make sure deleted pins (dblclick) go away when sending all pins/updating db.
-'''
