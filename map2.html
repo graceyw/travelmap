@@ -53,21 +53,7 @@
                                   crs: L.CRS.EPSG3857
                                  });
 
-
-// Mapbox (orginally generated)
-            // var tile_layer_c484a2e1011044b98ce194bc81bf44c7 = L.tileLayer(
-            //     'https://{s}.tiles.mapbox.com/v3/mapbox.world-bright/{z}/{x}/{y}.png',
-            //     {
-            //         maxZoom: 18,
-            //         minZoom: 1,
-            //         continuousWorld: false,
-            //         noWrap: false,
-            //         attribution: 'Map tiles by <a href="http://www.mapbox.com/m">Mapbox</a> Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.',
-            //         detectRetina: false
-            //         }
-            //     ).addTo(map1);
-
-// Open Street Map (copied from map.html)
+// Generate Open Street Map (copied from map.html)
             var tile_layer_c484a2e1011044b98ce194bc81bf44c7 = L.tileLayer(
                 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 {
@@ -80,6 +66,14 @@
                     }
                 ).addTo(map1);
 
+            // RETRIEVE SAVED PINS FROM DARK WHEN MAP IS REOPENED
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://gracey.builtwithdark.com/pins', true);
+
+            xhr.onload = function addSavedPins(){
+              for (pin : Pins):
+                newMarker()
+            };
 
                 function newMarker(e){   //e stands for event?
                     var new_mark = L.marker().setLatLng(e.latlng).addTo(map1);
@@ -93,13 +87,11 @@
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", 'http://gracey.builtwithdark.com/pins', true);
                     xhr.setRequestHeader("Content-Type", "application/json");
-                    // xhr.send(JSON.stringify(lat));
-                    // xhr.send("Name": "hello");
-                    xhr.send({"Name": "Dark Inc.",
+                    xhr.send(JSON.stringify({"Name": "test place",
                               "Latitude": lat,
                               "Longitude": lng,
-                              "Comment": "Cool place",
-                              "Visited": false});
+                              "Comment": "want to visit",
+                              "Visited": false}));
                     console.log(e);
                     };
                 map1.on('click', newMarker);  //newMarker is the func that gets called when data is added- we can send data to dark within it
