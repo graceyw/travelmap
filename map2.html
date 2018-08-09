@@ -91,14 +91,12 @@ body {
             req.responseType = 'json';
             req.open('GET', 'https://gracey.builtwithdark.com/pins', true);
 
-                   //save array of pins as a var somehow
-
             req.onload = function() {
-              var body = JSON.parse(req.response);
+              var body = req.response;    //save array of pins as a var somehow
+              console.log(body);
               for (var i=0; i<body.length; i++) {
-                var marker = L.marker(5.02,60.02).addTo(map1);    //shouldn't be redundant because not running newMarker() which is the func that sends pin to dark
-                // var marker = L.marker(body[i].Latitude, body[i].Longitude]).addTo(map1);    //shouldn't be redundant because not running newMarker() which is the func that sends pin to dark
-                // marker.bindPopup(body[i].Name + ': ' + body[i].Latitude + ', ' + body[i].Longitude);
+                var marker = L.marker([body[i].Latitude, body[i].Longitude]).addTo(map1);    //shouldn't be redundant because not running newMarker() which is the func that sends pin to dark
+                marker.bindPopup(body[i].Name + ': ' + body[i].Latitude + ', ' + body[i].Longitude);
               }
             };
             req.send(null);
