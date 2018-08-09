@@ -74,6 +74,7 @@ body {
                     }
                 ).addTo(map1);
 
+            //These example pts temporarily here to test dark receiving logic
             var currPins = [{"Name": "Point A",
                              "Latitude": "111.01",
                              "Longitude": "111.01",
@@ -86,13 +87,21 @@ body {
                               "Visited": false}];
 
             // RETRIEVE SAVED PINS FROM DARK WHEN MAP IS REOPENED
-            // var xhr = new XMLHttpRequest();
-          // xhr.open('GET', 'http://gracey.builtwithdark.com/pins', true);
+            var req = new XMLHttpRequest();
+            req.responseType = 'json';
+            req.open('GET', 'https://gracey.builtwithdark.com/pins', true);
 
-            // xhr.onload = function addSavedPins(){
-            //   for (pin : Pins):
-            //     newMarker()
-            // };
+                   //save array of pins as a var somehow
+
+            req.onload = function() {
+              var body = JSON.parse(req.response);
+              for (var i=0; i<body.length; i++) {
+                var marker = L.marker(5.02,60.02).addTo(map1);    //shouldn't be redundant because not running newMarker() which is the func that sends pin to dark
+                // var marker = L.marker(body[i].Latitude, body[i].Longitude]).addTo(map1);    //shouldn't be redundant because not running newMarker() which is the func that sends pin to dark
+                // marker.bindPopup(body[i].Name + ': ' + body[i].Latitude + ', ' + body[i].Longitude);
+              }
+            };
+            req.send(null);
 
                 function newMarker(e){   //e stands for event?
                     var new_mark = L.marker().setLatLng(e.latlng).addTo(map1);
@@ -104,12 +113,12 @@ body {
 
                     //Send data to Dark
                     var xhr = new XMLHttpRequest();
-                    xhr.open("POST", 'https://gracey.builtwithdark.com/pins2', true);
+                    xhr.open("POST", 'https://gracey.builtwithdark.com/pins', true);
                     xhr.setRequestHeader("Content-Type", "application/json");
-                    var newPin = {"Name": "Point C",
+                    var newPin = {"Name": "Point D",
                                "Latitude": lat,
                                "Longitude": lng,
-                               "Comment": "cccc",
+                               "Comment": "dddd",
                                "Visited": true};
                     currPins.push(newPin);
                     // window.alert(JSON.stringify(currPins));
