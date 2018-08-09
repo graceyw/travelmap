@@ -75,16 +75,7 @@ body {
                 ).addTo(map1);
 
             //These example pts temporarily here to test dark receiving logic
-            var currPins = [{"Name": "Point A",
-                             "Latitude": "111.01",
-                             "Longitude": "111.01",
-                             "Comment": "aaaaa",
-                             "Visited": true},
-                             {"Name": "Point B",
-                              "Latitude": "222.01",
-                              "Longitude": "222.01",
-                              "Comment": "bbbbbb",
-                              "Visited": false}];
+            var currPins = [];
 
             // RETRIEVE SAVED PINS FROM DARK WHEN MAP IS REOPENED
             var req = new XMLHttpRequest();
@@ -113,11 +104,11 @@ body {
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", 'https://gracey.builtwithdark.com/pins', true);
                     xhr.setRequestHeader("Content-Type", "application/json");
-                    var newPin = {"Name": "Point D",
+                    var newPin = {"Name": "Place I want to visit",
                                "Latitude": lat,
                                "Longitude": lng,
-                               "Comment": "dddd",
-                               "Visited": true};
+                               "Comment": "It looks cool!",
+                               "Visited": false};
                     currPins.push(newPin);
                     // window.alert(JSON.stringify(currPins));
                     xhr.send(JSON.stringify(currPins));
