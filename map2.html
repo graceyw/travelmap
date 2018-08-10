@@ -83,7 +83,11 @@ body {
               var body = req.response;    //save array of pins from Dark
               for (var i=0; i<body.length; i++) {
                 var marker = L.marker([body[i].Latitude, body[i].Longitude]).addTo(map1);    //avoiding redundance by not running full newMarker() func, which would send pin to Dark
-                marker.bindPopup(body[i].Name + ': ' + body[i].Latitude + ', ' + body[i].Longitude);
+                marker.bindPopup(("Place: ").bold() + body[i].Name + "<br />"
+                               + ("Coordinates: ").bold() + body[i].Latitude + ", " + body[i].Longitude + "<br />"
+                               + ("Comments: ").bold() + body[i].Comment  + "<br />"
+                              //  + ("Visited? ").bold() + "Not yet!"
+                                  );
               }
             };
             req.send(null);
@@ -93,27 +97,33 @@ body {
                 function newMarker(e){
                     // Create the new marker
                     var new_mark = L.marker().setLatLng(e.latlng).addTo(map1);
-                    new_mark.dragging.enable();
+                    // new_mark.dragging.enable();      //dragging disabled for now because location doesn't update when dragged
                     new_mark.on('dblclick', function(e){ map1.removeLayer(e.target)})
                     var lat = e.latlng.lat.toFixed(4),
                         lng = e.latlng.lng.toFixed(4);
 
-                    // Send data to Dark
+                    // Send data to Dark and create popup
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", 'https://gracey.builtwithdark.com/pins', true);
                     xhr.setRequestHeader("Content-Type", "application/json");
-                    var name = prompt("Name your new place");
-                    var comment = prompt("Enter any comments");
+
+                    // Attempt to use text edits in the popup itself instead of offering prompts
+                    // var n = document.createElement("INPUT");
+                    // n.setAttribute("type", "text");
+                    // document.body.appendChild(n);
+
+                    var name = prompt("What's the name of this place?");
+                    var comment = prompt("Any comments about it?");
                     var newPin = {"Name": name,
                                "Latitude": lat,
                                "Longitude": lng,
                                "Comment": comment,
                                "Visited": false};
-                    new_mark.bindPopup(name.bold() + "<br />"
-                                      + "Location: " + lat + ", " + lng + "<br />"
-                                      + "Visited: " + "Not yet!" + "<br />"
-                                      + "Comments: " + comment
-                                      );
+                    var content = ("Place: ").bold() + name + "<br />"
+                                + ("Coordinates: ").bold() + lat + ", " + lng + "<br />"
+                                + ("Comments: ").bold() + comment  + "<br />"
+                                // + ("Visited? ").bold() + "Not yet!"
+                    new_mark.bindPopup(content);
 
                     currPins.push(newPin);                       //add latest pin to the array
                     xhr.send(JSON.stringify(currPins));          //send the whole array to Dark
