@@ -61,7 +61,7 @@ body {
                                   crs: L.CRS.EPSG3857
                                  });
 
-// Generate Open Street Map (copied from map.html)
+            // Generate Open Street Map (copied from map.html)
             var tile_layer_c484a2e1011044b98ce194bc81bf44c7 = L.tileLayer(
                 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 {
@@ -74,25 +74,24 @@ body {
                     }
                 ).addTo(map1);
 
-            //These example pts temporarily here to test dark receiving logic
-            var currPins = [];
-
-            // RETRIEVE SAVED PINS FROM DARK WHEN MAP IS REOPENED
+            // Retrieve saved pins from Dark when map is reopened
             var req = new XMLHttpRequest();
             req.responseType = 'json';
             req.open('GET', 'https://gracey.builtwithdark.com/pins', true);
 
             req.onload = function() {
-              var body = req.response;    //save array of pins as a var somehow
-              console.log(body);
+              var body = req.response;    //save array of pins from Dark
               for (var i=0; i<body.length; i++) {
-                var marker = L.marker([body[i].Latitude, body[i].Longitude]).addTo(map1);    //shouldn't be redundant because not running newMarker() which is the func that sends pin to dark
+                var marker = L.marker([body[i].Latitude, body[i].Longitude]).addTo(map1);    //avoiding redundance by not running full newMarker() func, which would send pin to Dark
                 marker.bindPopup(body[i].Name + ': ' + body[i].Latitude + ', ' + body[i].Longitude);
               }
             };
             req.send(null);
 
-                function newMarker(e){   //e stands for event?
+            var currPins = [];   //initialize array of pins, which we add to when newMarker() is called
+
+                function newMarker(e){
+                    // Create the new marker
                     var new_mark = L.marker().setLatLng(e.latlng).addTo(map1);
                     new_mark.dragging.enable();
                     new_mark.on('dblclick', function(e){ map1.removeLayer(e.target)})
@@ -100,7 +99,7 @@ body {
                         lng = e.latlng.lng.toFixed(4);
                     new_mark.bindPopup(lat + ', ' + lng);
 
-                    //Send data to Dark
+                    // Send data to Dark
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", 'https://gracey.builtwithdark.com/pins', true);
                     xhr.setRequestHeader("Content-Type", "application/json");
@@ -109,17 +108,10 @@ body {
                                "Longitude": lng,
                                "Comment": "It looks cool!",
                                "Visited": false};
-                    currPins.push(newPin);
-                    // window.alert(JSON.stringify(currPins));
-                    xhr.send(JSON.stringify(currPins));
-                    console.log(e);
+                    currPins.push(newPin);                       //add latest pin to the array
+                    xhr.send(JSON.stringify(currPins));          //send the whole array to Dark
+                    console.log(e);                              //check out the event in the console
                     };
-                map1.on('click', newMarker);  //newMarker is the func that gets called when data is added- we can send data to dark within it
+                map1.on('click', newMarker);                     //call newMarker() when user clicks to drop pin + send to Dark
 
-// 1. Send all pins to dark every time a new marker is added.
-//     - Add js formatting to send it all
-//     - In dark, add logic: if pin already exists in db, update it. If not, add it.
-// 2. When page loads, add a thing that retrieves all the data saved in dark (which will
-//    probably fire off 10 more events/replacing data in dark which is redundant but it's fine).
-// 3. Make sure deleted pins (dblclick) go away when sending all pins/updating db.
 </script>
