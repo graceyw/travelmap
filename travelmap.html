@@ -37,10 +37,8 @@ body {
 }
 </style>
 <body>
-
-            <div class="folium-map" id="map1" ></div>
-
-            <div align="right"><font size="2"><a href="https://github.com/graceyw/travelmap">Source code</a></font></div>
+    <div class="folium-map" id="map1" ></div>
+    <div align="right"><font size="2"><a href="https://github.com/graceyw/travelmap">Source code</a></font></div>
 </body>
 <script>
 
@@ -111,7 +109,7 @@ retrieve.onload = function() {
           var lat = e.latlng.lat.toFixed(4),
               lng = e.latlng.lng.toFixed(4);
 
-          // Tell Dark to delete a pin if it's deleted via dblclick on map
+          // Tell Dark to delete a pin if it's deleted via dblclick on map - not quite working yet
           new_mark.on('dblclick', function(e){
             var toDelete = new XMLHttpRequest();
             toDelete.open("POST", 'https://gracey.builtwithdark.com/toDelete', true);
@@ -121,16 +119,12 @@ retrieve.onload = function() {
             map1.removeLayer(e.target);
           });
 
-          // Send data to Dark and create popup
+          // Send data to Dark
           var toAdd = new XMLHttpRequest();
           toAdd.open("POST", 'https://gracey.builtwithdark.com/pins', true);
           toAdd.setRequestHeader("Content-Type", "application/json");
 
-          // Attempt to use text edits in the popup itself instead of offering prompts
-          // var n = document.createElement("INPUT");
-          // n.setAttribute("type", "text");
-          // document.body.appendChild(n);
-
+          // Create popup
           var name = prompt("What's the name of this place?");
           var comment = prompt("Any comments about it?");
           var newPin = {"Name": name,
@@ -146,7 +140,7 @@ retrieve.onload = function() {
 
           currPins.push(newPin);                       //add latest pin to the array
           toAdd.send(JSON.stringify(currPins));          //send the whole array to Dark
-          // console.log(e);                              //check out the event in the console
+          console.log(e);                              //check out the event in the console
           };
       map1.on('click', newMarker);                     //call newMarker() when user clicks to drop pin + send to Dark
 
