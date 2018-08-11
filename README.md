@@ -9,5 +9,5 @@
 Click to drop a pin and you'll be prompted to enter a title and comments. Double click on a pin to delete it.
 
 ## How it Works
-- [Leaflet JS](https://leafletjs.com/)
-- [Dark](https://darklang.com/)
+- Front end: [Leaflet JS](https://leafletjs.com/)
+- Back end: [Dark](https://darklang.com/)
