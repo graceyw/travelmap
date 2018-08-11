@@ -44,91 +44,110 @@ body {
 </body>
 <script>
 
+var southWest = L.latLng(-90, -180);
+var northEast = L.latLng(90, 180);
+var bounds = L.latLngBounds(southWest, northEast);
 
 
-                var southWest = L.latLng(-90, -180);
-                var northEast = L.latLng(90, 180);
-                var bounds = L.latLngBounds(southWest, northEast);
+var map1 = L.map('map1',
+                {center: [0,0],
+                zoom: 1,
+                maxBounds: bounds,
+                layers: [],
+                worldCopyJump: false,
+                crs: L.CRS.EPSG3857
+                });
 
+// Generate Open Street Map
+var tile_layer_c484a2e1011044b98ce194bc81bf44c7 = L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    { maxZoom: 18,
+      minZoom: 1,
+      continuousWorld: false,
+      noWrap: false,
+      attribution: 'Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
+      detectRetina: false
+      }).addTo(map1);
 
-            var map1 = L.map(
-                                  'map1',
-                                  {center: [0,0],
-                                  zoom: 1,
-                                  maxBounds: bounds,
-                                  layers: [],
-                                  worldCopyJump: false,
-                                  crs: L.CRS.EPSG3857
-                                 });
+// Retrieve saved pins from Dark when map is reopened
+var retrieve = new XMLHttpRequest();
+retrieve.responseType = 'json';
+retrieve.open('GET', 'https://gracey.builtwithdark.com/pins', true);
 
-            // Generate Open Street Map (copied from map.html)
-            var tile_layer_c484a2e1011044b98ce194bc81bf44c7 = L.tileLayer(
-                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                {
-                    maxZoom: 18,
-                    minZoom: 1,
-                    continuousWorld: false,
-                    noWrap: false,
-                    attribution: 'Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
-                    detectRetina: false
-                    }
-                ).addTo(map1);
+retrieve.onload = function() {
+  var body = retrieve.response;        //save array of pins from Dark
+  for (var i=0; i<body.length; i++) {
+    var marker = L.marker([body[i].Latitude, body[i].Longitude]).addTo(map1);    //avoiding redundance by not running full newMarker() func, which would send pin to Dark
+    marker.bindPopup(("Place: ").bold() + body[i].Name + "<br />"
+                   + ("Coordinates: ").bold() + body[i].Latitude + ", " + body[i].Longitude + "<br />"
+                   + ("Comments: ").bold() + body[i].Comment  + "<br />"
+                  //  + ("Visited? ").bold() + body[i].Visited
+                      );
+    // Tell Dark to delete a pin if it's deleted via dblclick on map
+    marker.on('dblclick', function(e){
+      var toDelete = new XMLHttpRequest();
+      toDelete.open("POST", 'https://gracey.builtwithdark.com/toDelete', true);
+      toDelete.setRequestHeader("Content-Type", "application/json");
+      // toDelete.send({"Lat" : "69.1125",
+      //                "Lng" : "0.7031"});
+      console.log(JSON.stringify({"Lat" : body[i].Latitude,
+                                    "Lng" : body[i].Longitude}));
+      toDelete.send(JSON.stringify({"Lat" : body[i].Latitude,
+                                    "Lng" : body[i].Longitude}));
+      map1.removeLayer(e.target);
+      });
+    }
 
-            // Retrieve saved pins from Dark when map is reopened
-            var req = new XMLHttpRequest();
-            req.responseType = 'json';
-            req.open('GET', 'https://gracey.builtwithdark.com/pins', true);
+  };
+  retrieve.send(null);
 
-            req.onload = function() {
-              var body = req.response;    //save array of pins from Dark
-              for (var i=0; i<body.length; i++) {
-                var marker = L.marker([body[i].Latitude, body[i].Longitude]).addTo(map1);    //avoiding redundance by not running full newMarker() func, which would send pin to Dark
-                marker.bindPopup(("Place: ").bold() + body[i].Name + "<br />"
-                               + ("Coordinates: ").bold() + body[i].Latitude + ", " + body[i].Longitude + "<br />"
-                               + ("Comments: ").bold() + body[i].Comment  + "<br />"
-                              //  + ("Visited? ").bold() + "Not yet!"
-                                  );
-              }
-            };
-            req.send(null);
+  var currPins = [];   //initialize array of pins, which we add to when newMarker() is called
 
-            var currPins = [];   //initialize array of pins, which we add to when newMarker() is called
+      function newMarker(e){
+          // Create the new marker
+          var new_mark = L.marker().setLatLng(e.latlng).addTo(map1);
+          // new_mark.dragging.enable();      //dragging disabled for now because location doesn't update when dragged
 
-                function newMarker(e){
-                    // Create the new marker
-                    var new_mark = L.marker().setLatLng(e.latlng).addTo(map1);
-                    // new_mark.dragging.enable();      //dragging disabled for now because location doesn't update when dragged
-                    new_mark.on('dblclick', function(e){ map1.removeLayer(e.target)})
-                    var lat = e.latlng.lat.toFixed(4),
-                        lng = e.latlng.lng.toFixed(4);
+          var lat = e.latlng.lat.toFixed(4),
+              lng = e.latlng.lng.toFixed(4);
 
-                    // Send data to Dark and create popup
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", 'https://gracey.builtwithdark.com/pins', true);
-                    xhr.setRequestHeader("Content-Type", "application/json");
+          // Tell Dark to delete a pin if it's deleted via dblclick on map
+          new_mark.on('dblclick', function(e){
+            var toDelete = new XMLHttpRequest();
+            toDelete.open("POST", 'https://gracey.builtwithdark.com/toDelete', true);
+            toDelete.setRequestHeader("Content-Type", "application/json");
+            toDelete.send(JSON.stringify({"Lat" : lat,
+                                          "Lng" : lng}));
+            map1.removeLayer(e.target);
+          });
 
-                    // Attempt to use text edits in the popup itself instead of offering prompts
-                    // var n = document.createElement("INPUT");
-                    // n.setAttribute("type", "text");
-                    // document.body.appendChild(n);
+          // Send data to Dark and create popup
+          var toAdd = new XMLHttpRequest();
+          toAdd.open("POST", 'https://gracey.builtwithdark.com/pins', true);
+          toAdd.setRequestHeader("Content-Type", "application/json");
 
-                    var name = prompt("What's the name of this place?");
-                    var comment = prompt("Any comments about it?");
-                    var newPin = {"Name": name,
-                               "Latitude": lat,
-                               "Longitude": lng,
-                               "Comment": comment,
-                               "Visited": false};
-                    var content = ("Place: ").bold() + name + "<br />"
-                                + ("Coordinates: ").bold() + lat + ", " + lng + "<br />"
-                                + ("Comments: ").bold() + comment  + "<br />"
-                                // + ("Visited? ").bold() + "Not yet!"
-                    new_mark.bindPopup(content);
+          // Attempt to use text edits in the popup itself instead of offering prompts
+          // var n = document.createElement("INPUT");
+          // n.setAttribute("type", "text");
+          // document.body.appendChild(n);
 
-                    currPins.push(newPin);                       //add latest pin to the array
-                    xhr.send(JSON.stringify(currPins));          //send the whole array to Dark
-                    console.log(e);                              //check out the event in the console
-                    };
-                map1.on('click', newMarker);                     //call newMarker() when user clicks to drop pin + send to Dark
+          var name = prompt("What's the name of this place?");
+          var comment = prompt("Any comments about it?");
+          var newPin = {"Name": name,
+                     "Latitude": lat,
+                     "Longitude": lng,
+                     "Comment": comment,
+                     "Visited": false};
+          var content = ("Place: ").bold() + name + "<br />"
+                      + ("Coordinates: ").bold() + lat + ", " + lng + "<br />"
+                      + ("Comments: ").bold() + comment  + "<br />"
+                      // + ("Visited? ").bold() + "Not yet!"
+          new_mark.bindPopup(content);
+
+          currPins.push(newPin);                       //add latest pin to the array
+          toAdd.send(JSON.stringify(currPins));          //send the whole array to Dark
+          // console.log(e);                              //check out the event in the console
+          };
+      map1.on('click', newMarker);                     //call newMarker() when user clicks to drop pin + send to Dark
 
 </script>
