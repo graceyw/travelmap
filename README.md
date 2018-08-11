@@ -6,7 +6,7 @@
 
 #### Just drop pins where you want to visit. 
 
-Click to add, enter a title and comments, double click to delete.
+Click to drop a pin. You'll be prompted to enter a title and comments. Double click on a pin to delete it.
 
 ## How it Works
 - [Leaflet JS](https://leafletjs.com/)
